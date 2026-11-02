@@ -1,0 +1,11 @@
+{
+  "name": "ALICE AI - Personal Assistant",
+  "short_name": "ALICE AI",
+  "description": "A lightweight personal AI companion",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1015",
+  "theme_color": "#101318",
+  "orientation": "portrait"
+}
