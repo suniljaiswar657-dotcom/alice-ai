@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101318">
+<meta name="description" content="ALICE AI personal assistant">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>ALICE AI</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1015;--panel:#171c24;--panel2:#202733;--line:#303946;--text:#f5f7fa;--muted:#9ba6b5;--red:#f04b55;--red2:#b82d3c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202631 0,#0d1015 52%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 14px calc(18px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:12px;padding:18px 4px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#0f1319ed;backdrop-filter:blur(14px);z-index:3}
+.logo{height:44px;width:44px;border-radius:15px;background:linear-gradient(145deg,#343d49,#151a22);border:1px solid #596575;display:grid;place-items:center;font-size:25px;font-weight:850;color:#fff;box-shadow:0 5px 24px #0008}
+.brand{font-size:19px;font-weight:850;letter-spacing:1.4px}.sub{font-size:11px;color:var(--muted);letter-spacing:.7px}.status{margin-left:auto;border:1px solid #596575;border-radius:30px;padding:6px 9px;color:#c5cfda;font-size:10px}
+nav{display:flex;gap:8px;overflow:auto;padding:14px 0}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 14px;border-radius:30px;white-space:nowrap}.tab.active{background:#3a2028;border-color:#9d3945;color:#fff}
+main{padding:14px 0}.welcome{padding:20px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#202833,#151a22);margin-bottom:14px}.welcome h1{margin:0 0 7px;font-size:24px}.welcome p{margin:0;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tile,.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:15px}.tile{min-height:108px;text-align:left;color:var(--text)}.tile:active,button:active{transform:scale(.985)}.tile .ico{font-size:22px}.tile b{display:block;margin:8px 0 3px}.tile small{color:var(--muted);line-height:1.35}
+.panel{margin-top:14px}.panel h2{font-size:16px;margin:0 0 12px}.muted{color:var(--muted)}.chatlog{height:270px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:4px 0 12px}.bubble{max-width:88%;padding:11px 13px;border-radius:16px;line-height:1.45;white-space:pre-wrap}.alice{background:var(--panel2);border:1px solid var(--line);align-self:flex-start}.user{background:#542832;align-self:flex-end}
+.composer{display:flex;gap:8px}.composer input,.field,textarea{width:100%;background:#0e1218;border:1px solid var(--line);border-radius:13px;padding:12px;color:var(--text);outline:none}.composer input:focus,.field:focus,textarea:focus{border-color:var(--red)}.btn{border:0;border-radius:13px;background:var(--red);color:#fff;padding:11px 15px;font-weight:700}.btn.secondary{background:var(--panel2);border:1px solid var(--line)}.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px;align-items:center}.task{display:flex;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.task span{flex:1;overflow-wrap:anywhere}.task.done span{text-decoration:line-through;color:var(--muted)}
+.hidden{display:none!important}.note{font-size:12px;color:var(--muted);line-height:1.5}.foot{text-align:center;color:#788392;font-size:11px;padding:24px 0}
+@media(min-width:600px){.app{padding-left:22px;padding-right:22px}.chatlog{height:360px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">A</div><div><div class="brand">ALICE AI</div><div class="sub">YOUR PERSONAL AI COMPANION</div></div><div class="status">STARTER MODE</div></header>
+<nav aria-label="Main navigation"><button class="tab active" data-view="home">Home</button><button class="tab" data-view="chat">AI Chat</button><button class="tab" data-view="tasks">My Tasks</button><button class="tab" data-view="about">About</button></nav>
+<main>
+<section id="home" class="view">
+<div class="welcome"><h1>Welcome. I'm Alice.</h1><p>Your lightweight personal assistant. Start with a chat, save a task, or use voice input where your browser supports it.</p></div>
+<div class="grid">
+<button class="tile" data-go="chat"><span class="ico">✦</span><b>AI Chat</b><small>Talk to Alice and explore assistant features.</small></button>
+<button class="tile" data-go="tasks"><span class="ico">✓</span><b>Daily Tasks</b><small>Save reminders and track your checklist on this device.</small></button>
+<button class="tile" data-go="chat" data-prompt="Help me plan my day."><span class="ico">◷</span><b>Plan my day</b><small>Start a simple daily planning conversation.</small></button>
+<button class="tile" data-go="about"><span class="ico">⚙</span><b>Capabilities</b><small>See what works now and what needs setup.</small></button>
+</div>
+<div class="panel"><h2>Quick status</h2><div class="note">App shell: ready · Offline support: enabled after first load · AI cloud connection: not configured yet</div></div>
+</section>
+<section id="chat" class="view hidden">
+<div class="panel"><h2>Chat with Alice</h2><div class="note" style="margin-bottom:10px">Starter mode: this build does not yet connect to a live AI model. I won't pretend demo replies are real AI answers.</div>
+<div id="chatlog" class="chatlog" aria-live="polite"><div class="bubble alice">Hi! I'm Alice. I can save your tasks on this phone. Live AI answers will be enabled after a free-model connection is configured.</div></div>
+<form id="chatform" class="composer"><input id="message" autocomplete="off" placeholder="Message Alice..." aria-label="Message Alice"><button class="btn" type="submit">Send</button></form>
+<div class="row" style="margin-top:9px"><button id="voice" class="btn secondary" type="button">🎙 Voice input</button><span id="voiceStatus" class="note">Voice support depends on browser.</span></div>
+</div>
+</section>
+<section id="tasks" class="view hidden">
+<div class="panel"><h2>My daily tasks</h2><form id="taskform" class="row"><input class="field" id="taskinput" placeholder="Add a task..." aria-label="New task"><button class="btn">Add</button></form><div id="tasklist" style="margin-top:10px"></div><p class="note">Tasks are saved locally in this browser on this phone.</p></div>
+</section>
+<section id="about" class="view hidden">
+<div class="panel"><h2>What works in this first build</h2><p>✓ Mobile-first interface<br>✓ Installable web app foundation<br>✓ Local task list<br>✓ Offline cache after first visit<br>✓ Voice input when browser supports it</p><h2 style="margin-top:20px">What still needs building</h2><p>• Live AI model connection<br>• Secure server-side key handling<br>• Reliable background reminders<br>• Android APK packaging<br>• Business and web automation integrations</p><p class="note">No paid API key is required for this starter shell. Free AI services may have usage limits and can change their terms.</p></div>
+</section>
+</main><div class="foot">ALICE AI · Built lightweight for Android phones</div>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===id));}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{show(b.dataset.go);if(b.dataset.prompt){$('#message').value=b.dataset.prompt;$('#message').focus();}}));
+function bubble(text,who){const d=document.createElement('div');d.className='bubble '+who;d.textContent=text;$('#chatlog').append(d);$('#chatlog').scrollTop=$('#chatlog').scrollHeight;}
+$('#chatform').addEventListener('submit',e=>{e.preventDefault();const v=$('#message').value.trim();if(!v)return;bubble(v,'user');$('#message').value='';bubble('This starter version is not connected to a live AI model yet. Your message is visible here, but I cannot generate a real AI answer until the AI service is connected.','alice');});
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+$('#voice').addEventListener('click',()=>{if(!SpeechRecognition){$('#voiceStatus').textContent='Voice input is not supported in this browser. Try Chrome.';return;}const r=new SpeechRecognition();r.lang='en-IN';r.onresult=e=>{$('#message').value=e.results[0][0].transcript;$('#voiceStatus').textContent='Voice captured. Tap Send.';};r.onerror=()=>$('#voiceStatus').textContent='Could not capture voice. Check microphone permission.';r.start();$('#voiceStatus').textContent='Listening...';});
+let tasks=JSON.parse(localStorage.getItem('alice_tasks')||'[]');
+function renderTasks(){const root=$('#tasklist');root.innerHTML='';if(!tasks.length){root.textContent='No tasks yet. Add your first task above.';root.className='note';return;}root.className='';tasks.forEach((t,i)=>{const row=document.createElement('div');row.className='task'+(t.done?' done':'');const c=document.createElement('input');c.type='checkbox';c.checked=t.done;c.addEventListener('change',()=>{tasks[i].done=c.checked;save();});const s=document.createElement('span');s.textContent=t.text;const del=document.createElement('button');del.className='btn secondary';del.textContent='Delete';del.addEventListener('click',()=>{tasks.splice(i,1);save();});row.append(c,s,del);root.append(row);});}
+function save(){localStorage.setItem('alice_tasks',JSON.stringify(tasks));renderTasks();}
+$('#taskform').addEventListener('submit',e=>{e.preventDefault();const v=$('#taskinput').value.trim();if(!v)return;tasks.push({text:v,done:false});$('#taskinput').value='';save();});
+renderTasks();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
